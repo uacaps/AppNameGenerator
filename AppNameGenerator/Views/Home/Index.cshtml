@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<form>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Min Combined Word Syllabes:</label>
+                <input type="text" class="form-control" data-bind="value: minSyllables">
+            </div>
+            <div class="form-group">
+                <label>Max Combined Word Syllabes:</label>
+                <input type="text" class="form-control" data-bind="value: maxSyllables">
+            </div>
+            <div class="form-group">
+                <label>Buzz Words:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Add Buzz Word" data-bind="value: newBuzzWord">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-bind="click: addBuzzWord">Add</button>
+                    </span>
+                </div>
+                <ul class="list-group" data-bind="foreach: buzzWords">
+                    <li class="list-group-item">
+                        <b data-bind="text: word"></b>
+                        <button type="button" class="btn btn-xs btn-danger pull-right" data-bind="click: removeBuzzWord">Remove</button>
+                        <ul class="unstyled">
+                            <li>
+                                non-end <input type="checkbox" data-bind="checked: isAdjective" />
+                            </li>
+                            <li>
+                                non-start <input type="checkbox" data-bind="checked: isNonStart" />
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Max Acronym Length:</label>
+                <input type="text" class="form-control" data-bind="value: maxAcronymLength">
+            </div>
+            <div class="form-group">
+                <label>Prefixes:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Add Buzz Word" data-bind="value: newPrefix">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-bind="click: addPrefix">Add</button>
+                    </span>
+                </div>
+                <ul class="list-group" data-bind="foreach: prefixes">
+                    <li class="list-group-item">
+                        <span data-bind="text: word"></span> <button type="button" class="btn btn-xs pull-right btn-danger" data-bind="click: removePrefix">Remove</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label>Postfixes:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Add Buzz Word" data-bind="value: newPostfix">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-bind="click: addPostfix">Add</button>
+                    </span>
+                </div>
+                <ul class="list-group" data-bind="foreach: postfixes">
+                    <li class="list-group-item">
+                        <span data-bind="text: word"></span> <button type="button" class="btn btn-xs pull-right btn-danger" data-bind="click: removePostfix">Remove</button>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" data-bind="click: generateNames" class="btn btn-primary">Generate Names</button>
+        </div>
+        <div class="col-md-6">
+            <h3>Results:</h3>
+            <ul class="list-group" data-bind="foreach: matches">
+                <li class="list-group-item">
+                    <span data-bind="text: word"></span>
+                    <span data-bind="if: buzzWords.length > 0">
+                        (<span data-bind="foreach: buzzWords"><span data-bind="text: $data"></span>&nbsp;</span>)
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-6">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+            
+            
+            
+            
+        </form>
+    </div>
+    <div class="col-md-6">
+        
+    </div>
+</div>
+@section scripts {
+<script src="/Scripts/array.extend/array.extend.js"></script>
+    <script src="/Scripts/appnamegenerator.js"></script>
+<script src="/Scripts/wordList2.js"></script>
+    <script>
+        $(document).ready(function () {
+            var vm = new AppNameGeneratorViewModel();
+            ko.applyBindings(vm);
+        });
+    </script>
+}
